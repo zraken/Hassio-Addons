@@ -13,6 +13,10 @@ Protection mode must be **disabled** for this App in order for it to have access
 | Option  | Required | Description |
 |---------|----------|-------------|
 | `token` | Yes      | Secret token used to authenticate API requests from Dockhand. Must be changed from default value. |
+| `edge_mode` | No | Enable Edge Mode. The agent initiates an outbound WebSocket connection to Dockhand instead of listening for incoming connections. Ideal for NAT or dynamic IP setups. Default: `false` |
+| `dockhand_server_url` | No | WebSocket URL of your Dockhand server for Edge Mode (e.g. `wss://your-dockhand.example.com/api/hawser/connect`). Required when Edge Mode is enabled. |
+| `enable_tls` | No | Enable TLS/HTTPS for secure connections. Expects `fullchain.pem` and `privkey.pem` in the configured cert directory. Default: `false` |
+| `certdir` | No | Directory containing TLS certificate files. Default: `/ssl` |
 
 ## Ports
 

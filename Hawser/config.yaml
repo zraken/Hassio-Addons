@@ -1,5 +1,5 @@
 name: "Hawser"
-version: "0.2.42-0"
+version: "0.3.00"
 slug: hawser
 description: "Docker stack deployment and management via a remote API"
 url: "https://github.com/finsys/hawser"
@@ -19,7 +19,17 @@ ports_description:
 map:
   - type: share
     read_only: false
+  - type: ssl
+    read_only: true
 options:
   token: "your-secret-token"
+  edge_mode: false
+  dockhand_server_url: ""
+  enable_tls: false
+  certdir: "/ssl"
 schema:
   token: str
+  edge_mode: bool
+  dockhand_server_url: str
+  enable_tls: bool
+  certdir: str
