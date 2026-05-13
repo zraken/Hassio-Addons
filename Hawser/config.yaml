@@ -11,7 +11,9 @@ arch:
 init: false
 host_network: false
 docker_api: true
-watchdog: http://[HOST]:[PORT:2376]/_hawser/health
+# NOTE: watchdog URL must match TLS setting — https:// when enable_tls is true, http:// when false.
+# Home Assistant does not support conditional watchdog URLs.
+watchdog: https://[HOST]:[PORT:2376]/_hawser/health
 ports:
   2376/tcp: 2376
 ports_description:
