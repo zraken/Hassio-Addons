@@ -8,5 +8,9 @@ COPY entrypoint.sh /entrypoint.sh
 # Make sure the permissions on the entrypoint file are correct
 RUN chmod +x /entrypoint.sh
 
+# Disable upstream health check — it uses HTTP which conflicts with TLS.
+# The HA watchdog handles health monitoring instead.
+HEALTHCHECK NONE
+
 # Run the entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
