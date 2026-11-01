@@ -37,3 +37,4 @@ Each App can then be installed from the App store
 The following Apps are available in this repository:
 
   - **[Hawser](/Hawser/README.md)**: A remote Docker agent for [Dockhand](https://dockhand.pro/) - manage your Home Assistant Supervisor containers from Dockhand.
+  - **[ha-ai-billing](/ha-ai-billing/README.md)**: AI provider key & billing sensors (OpenRouter, DeepSeek, OpenAI, Anthropic, Gemini, Meta, z.ai) via MQTT discovery — one Home Assistant sensor per API key, with balances, spend and quota windows as attributes.

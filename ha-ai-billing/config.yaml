@@ -1,0 +1,62 @@
+name: ha-ai-billing
+version: "1.0.0"
+slug: ha_ai_billing
+description: AI provider key & billing sensors via MQTT discovery — one device per API key
+url: https://github.com/zraken/Hassio-Addons/tree/main/ha-ai-billing
+arch:
+  - aarch64
+  - amd64
+startup: services
+boot: auto
+init: false
+services:
+  - mqtt:want
+map:
+  - ssl
+hassio_api: false
+homeassistant_api: false
+host_network: false
+uart: false
+
+# Defaults for the Configuration form (Settings -> Add-ons -> ha-ai-billing -> Configuration)
+options:
+  poll_interval: 300
+  name_prefix: ""
+  base_topic: ai-tokens
+  discovery_prefix: homeassistant
+  mqtt_host: ""
+  mqtt_port: 1883
+  mqtt_username: ""
+  mqtt_password: ""
+  mqtt_ca_cert: ""
+  mqtt_tls_insecure: true
+  probe_gemini: true
+  probe_meta: true
+  log_level: info
+  accounts: []
+
+# The Configuration form definition (validated by the Supervisor on Save)
+schema:
+  poll_interval: int(30, 86400)
+  name_prefix: str
+  base_topic: str
+  discovery_prefix: str
+  mqtt_host: str?
+  mqtt_port: port?
+  mqtt_username: str?
+  mqtt_password: password?
+  mqtt_ca_cert: str?
+  mqtt_tls_insecure: bool
+  probe_gemini: bool
+  probe_meta: bool
+  log_level: list(debug|info|warning|error)
+  accounts:
+    - name: str
+      provider: "list(openrouter|deepseek|openai|anthropic|gemini|meta|zai_plan|zai)"
+      api_key: password
+      track: "list(balance|spent_today|spent_month|tokens_month|requests_remaining|tokens_remaining)?"
+      interval: int(30, 86400)?
+      probe: bool?
+      probe_model: str?
+      base_url: str?
+      currency: str?

@@ -1,0 +1,67 @@
+# mqtt-tokens configuration — copy to config.yaml and trim to your accounts.
+#
+#   * One account per API key. `name` becomes the Home Assistant device name.
+#   * `!env VAR` pulls a value from the environment / .env file. An unset or
+#     empty variable disables that account (reported by --check).
+#   * `track` promotes an attribute to a real numeric sensor (graphable):
+#     balance, spent_today, spent_month, tokens_month, requests_remaining,
+#     tokens_remaining.
+
+mqtt:
+  host: !env MQTT_HOST
+  port: !env MQTT_PORT
+  username: !env MQTT_USERNAME
+  password: !env MQTT_PASSWORD
+  base_topic: ai-tokens
+  # ca_cert: !env MQTT_CA_CERT
+
+poll_interval: 300
+
+# Optional prefix for HA display names (devices + entities) so they group and
+# search easily, e.g. "ai-billing-" -> sensor.ai_billing_openrouter_main_status.
+# Changing it later renames entities in place; unique_ids stay stable.
+name_prefix: ai-billing-
+
+accounts:
+  - name: openrouter-main
+    provider: openrouter
+    api_key: !env OPENROUTER_API_KEY
+    track: [balance]
+
+  - name: deepseek
+    provider: deepseek
+    api_key: !env DEEPSEEK_API_KEY
+    track: [balance]
+
+  - name: openai-org
+    provider: openai
+    api_key: !env OPENAI_ADMIN_KEY
+    track: [spent_today, spent_month]
+
+  - name: anthropic-org
+    provider: anthropic
+    api_key: !env ANTHROPIC_ADMIN_KEY
+    track: [spent_month]
+
+  - name: gemini
+    provider: gemini
+    api_key: !env GEMINI_API_KEY
+    probe: true            # 1-token call; detects HTTP 402 = prepay credits depleted
+    # probe_model: gemini-flash-latest
+    track: []
+
+  - name: meta
+    provider: meta
+    api_key: !env META_API_KEY
+    # base_url: https://api.llama.com/v1   # uncomment for legacy Llama API keys
+    track: [requests_remaining]
+
+  - name: zai-coding-plan
+    provider: zai_plan
+    api_key: !env ZAI_PLAN_API_KEY
+    track: []
+
+  # - name: zai-payg
+  #   provider: zai
+  #   api_key: !env ZAI_API_KEY
+  #   # base_url: https://open.bigmodel.cn   # Zhipu CN platform

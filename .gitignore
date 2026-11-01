@@ -6,3 +6,14 @@ compare/
 
 #Ignore vscode AI rules
 .github/instructions/codacy.instructions.md
+
+# ha-ai-billing secrets — never commit
+ha-ai-billing/standalone/.env
+ha-ai-billing/standalone/config.yaml
+ha-ai-billing/standalone/.certs/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
