@@ -27,6 +27,8 @@ ATTRIBUTE_KEYS: tuple[str, ...] = (
     "spent_today",
     "spent_month",
     "tokens_month",
+    "usage_daily_pct",
+    "usage_5h_pct",
     "requests_remaining",
     "requests_limit",
     "tokens_remaining",
@@ -42,6 +44,8 @@ TRACKABLE_FIELDS: frozenset[str] = frozenset(
         "spent_today",
         "spent_month",
         "tokens_month",
+        "usage_daily_pct",
+        "usage_5h_pct",
         "requests_remaining",
         "tokens_remaining",
     }

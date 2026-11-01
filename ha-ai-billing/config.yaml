@@ -1,5 +1,5 @@
 name: ha-ai-billing
-version: "1.0.0"
+version: "1.1.0"
 slug: ha_ai_billing
 description: AI provider key & billing sensors via MQTT discovery — one device per API key
 url: https://github.com/zraken/Hassio-Addons/tree/main/ha-ai-billing
@@ -21,7 +21,7 @@ uart: false
 # Defaults for the Configuration form (Settings -> Add-ons -> ha-ai-billing -> Configuration)
 options:
   poll_interval: 300
-  name_prefix: ""
+  name_prefix: "ai-usage-"
   base_topic: ai-tokens
   discovery_prefix: homeassistant
   mqtt_host: ""
@@ -54,7 +54,7 @@ schema:
     - name: str
       provider: "list(openrouter|deepseek|openai|anthropic|gemini|meta|zai_plan|zai)"
       api_key: password
-      track: "list(balance|spent_today|spent_month|tokens_month|requests_remaining|tokens_remaining)?"
+      track: "list(balance|spent_today|spent_month|tokens_month|usage_daily_pct|usage_5h_pct|requests_remaining|tokens_remaining)?"
       interval: int(30, 86400)?
       probe: bool?
       probe_model: str?

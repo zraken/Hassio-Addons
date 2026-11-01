@@ -5,9 +5,9 @@ the sensor state with balance/spend/quota details as attributes, using MQTT
 discovery — no Home Assistant integration code, works with any broker.
 
 ```
-sensor.ai_billing_openrouter_main_status   ok           (attrs: balance=9.19 USD, plan=…)
-sensor.ai_billing_openai_org_spent_month   0.00 USD     (via track:)
-sensor.ai_billing_gemini_status            no_credits   (prepay credits depleted — HTTP 402)
+sensor.ai_usage_openrouter_main_status   ok           (attrs: balance=9.19 USD, plan=…)
+sensor.ai_usage_openai_org_spent_month   0.00 USD     (via track:)
+sensor.ai_usage_gemini_status            no_credits   (prepay credits depleted — HTTP 402)
 ```
 
 ## Contents
@@ -38,16 +38,16 @@ One virtual device per account (named by you), containing:
 - **Uniform attributes on every status sensor**, populated only where the
   provider can report them:
   `provider, key_hint, plan, balance, currency, spent_today, spent_month,
-  tokens_month, requests_remaining, requests_limit, tokens_remaining,
-  tokens_limit, last_error, last_checked`
+  tokens_month, usage_daily_pct, usage_5h_pct, requests_remaining,
+  requests_limit, tokens_remaining, tokens_limit, last_error, last_checked`
 - Optional **`track`** fields promoted to real numeric sensors (history,
   long-term stats, Energy-dashboard-eligible):
-  `balance, spent_today, spent_month, tokens_month, requests_remaining,
-  tokens_remaining`
+  `balance, spent_today, spent_month, tokens_month, usage_daily_pct,
+  usage_5h_pct, requests_remaining, tokens_remaining`
 - Optional **`name_prefix`** (add-on option / `name_prefix:` in config.yaml /
-  `NAME_PREFIX` env): prefix for all HA display names, e.g. `ai-billing-`
-  gives device `ai-billing-openrouter-main` and entities like
-  `sensor.ai_billing_openrouter_main_status` — one search term finds
+  `NAME_PREFIX` env): prefix for all HA display names, e.g. `ai-usage-`
+  gives device `ai-usage-openrouter-main` and entities like
+  `sensor.ai_usage_openrouter_main_status` — one search term finds
   everything. Unique IDs are independent of the prefix, so changing it later
   renames entities in place and never duplicates them.
 
@@ -84,7 +84,7 @@ form; nothing to edit on disk.
 | Option | Meaning |
 |---|---|
 | `accounts` | One row per API key. `provider` dropdown, masked `api_key`, optional `track` fields (promote to numeric sensors), per-account `interval`. |
-| `name_prefix` | Prefix for HA device/entity display names (e.g. `ai-billing-`) so everything is searchable with one term. |
+| `name_prefix` | Prefix for HA device/entity display names (e.g. `ai-usage-`) so everything is searchable with one term. |
 | `mqtt_host/port/username/password` | Leave **empty** with the Mosquitto broker add-on (credentials are injected automatically by the Supervisor via `mqtt:want`). Fill in for any external broker (e.g. `mosquittos.example:8883`). |
 | `mqtt_tls_insecure` | Skip broker certificate verification (self-signed/private CA on a LAN you trust). Default on; see below for the verified alternative. |
 | `mqtt_ca_cert` | Path to a CA cert for proper verification, e.g. `/ssl/ca.crt` (the `/ssl` share is mapped into this add-on). |
@@ -199,6 +199,6 @@ uniform-attribute test enforces the schema for you.
 
 ## Roadmap
 
-- Aggregate `binary_sensor.ha_ai_billing_all_keys_valid` for one-glance/automation alerts.
+- Aggregate `binary_sensor.ha_ai_usage_all_keys_valid` for one-glance/automation alerts.
 - `gemini_gcp` provider: usage via GCP Monitoring / BigQuery billing export.
 - Groq / Mistral / Together providers.

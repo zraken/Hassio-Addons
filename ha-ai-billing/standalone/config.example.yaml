@@ -18,9 +18,9 @@ mqtt:
 poll_interval: 300
 
 # Optional prefix for HA display names (devices + entities) so they group and
-# search easily, e.g. "ai-billing-" -> sensor.ai_billing_openrouter_main_status.
+# search easily, e.g. "ai-usage-" -> sensor.ai_usage_openrouter_main_status.
 # Changing it later renames entities in place; unique_ids stay stable.
-name_prefix: ai-billing-
+name_prefix: ai-usage-
 
 accounts:
   - name: openrouter-main
@@ -48,7 +48,7 @@ accounts:
     api_key: !env GEMINI_API_KEY
     probe: true            # 1-token call; detects HTTP 402 = prepay credits depleted
     # probe_model: gemini-flash-latest
-    track: []
+    track: [usage_daily_pct, usage_5h_pct]   # z.ai: MCP/tools % + 5h token %
 
   - name: meta
     provider: meta
@@ -59,7 +59,7 @@ accounts:
   - name: zai-coding-plan
     provider: zai_plan
     api_key: !env ZAI_PLAN_API_KEY
-    track: []
+    track: [usage_daily_pct, usage_5h_pct]   # MCP/tools quota % + 5h token quota %
 
   # - name: zai-payg
   #   provider: zai

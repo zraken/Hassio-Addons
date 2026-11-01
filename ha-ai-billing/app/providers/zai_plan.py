@@ -75,11 +75,15 @@ class ZaiPlanProvider(Provider):
                     attrs["requests_limit"] = int(cap)
                 if isinstance(remaining, (int, float)):
                     attrs["requests_remaining"] = int(remaining)
+                if isinstance(pct, (int, float)):
+                    attrs["usage_daily_pct"] = round(float(pct), 1)
                 reset = _fmt_reset(lim.get("nextResetTime"))
                 parts.append(f"tools {pct}% used" + (f", resets {reset}" if reset else ""))
             elif ltype == "TOKENS_LIMIT":  # rolling 5-hour token quota
                 hours = lim.get("number")
                 window = f"{hours}h" if isinstance(hours, (int, float)) else "tokens"
+                if isinstance(pct, (int, float)):
+                    attrs["usage_5h_pct"] = round(float(pct), 1)
                 reset = _fmt_reset(lim.get("nextResetTime"))
                 parts.append(f"{window} {pct}% used" + (f", resets {reset}" if reset else ""))
             else:

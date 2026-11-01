@@ -17,6 +17,8 @@ FIELD_UNITS = {
     "tokens_month": "tokens",
     "tokens_remaining": "tokens",
     "requests_remaining": "requests",
+    "usage_daily_pct": "%",
+    "usage_5h_pct": "%",
 }
 FIELD_ICONS = {
     "balance": "mdi:cash",
@@ -25,6 +27,8 @@ FIELD_ICONS = {
     "tokens_month": "mdi:counter",
     "tokens_remaining": "mdi:counter",
     "requests_remaining": "mdi:server",
+    "usage_daily_pct": "mdi:percent",
+    "usage_5h_pct": "mdi:percent",
 }
 
 

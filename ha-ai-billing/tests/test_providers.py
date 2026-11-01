@@ -359,6 +359,8 @@ async def test_zai_plan_live_shape(account, mock_client):
     assert "resets " in plan
     assert result.attributes["requests_limit"] == 100  # TIME_LIMIT "usage" is the cap
     assert result.attributes["requests_remaining"] == 93
+    assert result.attributes["usage_daily_pct"] == 7  # MCP/tools window
+    assert result.attributes["usage_5h_pct"] == 5     # rolling 5h token window
     assert_uniform(result)
 
 
